@@ -1,6 +1,5 @@
 package com.plf.task.quartz.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +19,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Resource;
+
 /**
  * 定时任务控制器
  * @author plf 2019年5月14日上午10:32:44
@@ -31,10 +32,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JobController {
 
-	@Autowired
+	@Resource
 	private JobDetailInfoService jobDetailInfoService;
 
-	@Autowired
+	@Resource
 	private TaskQuartzService taskQuartzService;
 	
 	/**

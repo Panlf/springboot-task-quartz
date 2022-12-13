@@ -6,17 +6,18 @@ import java.util.Properties;
 import org.quartz.Scheduler;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.spi.JobFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
+import javax.annotation.Resource;
+
 @Configuration
 public class SchedulerConfig {
 
-	@Autowired
+	@Resource
     private JobFactory jobFactory;
 	
     @Bean(name="schedulerFactory")

@@ -16,6 +16,6 @@ public class CronUtilsTest {
     public void test(){
         List<Date> list = CronUtils.getExecuteTimes("0 0/10 * * * ?",5);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        list.stream().forEach(x-> System.out.println(simpleDateFormat.format(x)));
+        list.forEach(x-> System.out.println(simpleDateFormat.format(x)));
     }
 }

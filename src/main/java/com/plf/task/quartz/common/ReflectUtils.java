@@ -16,6 +16,6 @@ public class ReflectUtils {
 	 */
 	public static Job getObjectByClass(String classname) throws Exception {
 		Class<?> clazz = Class.forName(classname);
-		return (Job) clazz.newInstance();
+		return (Job) clazz.getDeclaredConstructor().newInstance();
 	}
 }

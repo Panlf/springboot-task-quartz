@@ -10,7 +10,6 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +17,15 @@ import com.plf.task.quartz.common.ReflectUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Resource;
+
 @Service
 @Slf4j
 public class TaskQuartzService {
 	
 	// 加入Qulifier注解，通过名称注入bean
 	@Qualifier("scheduler")
-	@Autowired	
+	@Resource
 	private Scheduler scheduler;
 	
 	public boolean addJob(String jobClassName, String jobGroupName, String cronExpression,String description) throws Exception {
