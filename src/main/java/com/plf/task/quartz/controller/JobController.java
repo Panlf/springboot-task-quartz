@@ -46,7 +46,7 @@ public class JobController {
 	@ApiOperation("增加定时任务")
 	@ApiImplicitParam(name="addjob",dataTypeClass=QuartzTaskVo.class)
 	@PostMapping(value = "/addjob")
-	public Result addjob(QuartzTaskVo quartzTaskVo) throws Exception {
+	public Result addJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("新增Quartz定时任务");
 		boolean flag = taskQuartzService.addJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName(), quartzTaskVo.getCronExpression(),quartzTaskVo.getDescription());
 		return Result.result(flag, "处理完毕", null);
@@ -60,9 +60,9 @@ public class JobController {
 	@ApiOperation("暂停定时任务")
 	@ApiImplicitParam(name="pausejob",dataTypeClass=QuartzTaskVo.class)
 	@GetMapping(value = "/pausejob")
-	public Result pausejob(QuartzTaskVo quartzTaskVo) throws Exception {
+	public Result pauseJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("暂停Quartz定时任务");
-		boolean flag=taskQuartzService.jobPause(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
+		boolean flag=taskQuartzService.pauseJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -74,9 +74,9 @@ public class JobController {
 	@ApiOperation("恢复某个任务")
 	@ApiImplicitParam(name="resumejob",dataTypeClass=QuartzTaskVo.class)
 	@GetMapping(value = "/resumejob")
-	public Result resumejob(QuartzTaskVo quartzTaskVo) throws Exception {
+	public Result resumeJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("恢复Quartz定时任务");
-		boolean flag=taskQuartzService.jobresume(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
+		boolean flag=taskQuartzService.resumeJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -100,9 +100,9 @@ public class JobController {
 	@ApiOperation("删除任务")
 	@ApiImplicitParam(name="deletejob",dataTypeClass=QuartzTaskVo.class)
 	@PostMapping(value = "/deletejob")
-	public Result deletejob(QuartzTaskVo quartzTaskVo) throws Exception {
+	public Result deleteJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("删除Quartz定时任务");
-		boolean flag=taskQuartzService.jobdelete(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
+		boolean flag=taskQuartzService.deleteJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -116,7 +116,7 @@ public class JobController {
 	@PostMapping(value = "/updatejob")
 	public Result rescheduleJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("更新Quartz定时任务");
-		boolean flag=taskQuartzService.updatejob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName(), quartzTaskVo.getCronExpression());
+		boolean flag=taskQuartzService.updateJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName(), quartzTaskVo.getCronExpression());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -132,7 +132,7 @@ public class JobController {
 		@ApiImplicitParam(name="pageSize",value="每页数量",required=true,dataTypeClass=Integer.class)
 	})
 	@GetMapping(value = "/queryjob")
-	public Result queryjob(@RequestParam(defaultValue="1") Integer pageNumber,@RequestParam(defaultValue="5") Integer pageSize) {
+	public Result queryJob(@RequestParam(defaultValue="1") Integer pageNumber,@RequestParam(defaultValue="5") Integer pageSize) {
 		PageInfo<JobDetailInfo> jobDetailInfo = jobDetailInfoService.getJobDetailInfo(pageNumber, pageSize);
 		return Result.success(jobDetailInfo);
 	}

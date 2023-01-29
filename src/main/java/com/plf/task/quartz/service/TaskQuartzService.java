@@ -52,7 +52,7 @@ public class TaskQuartzService {
 		return true;
 	}
 	
-	public boolean updatejob(String jobClassName, String jobGroupName, String cronExpression) throws Exception {
+	public boolean updateJob(String jobClassName, String jobGroupName, String cronExpression) throws Exception {
 		if (!CronExpression.isValidExpression(cronExpression)) {
             return false;
 		}
@@ -76,7 +76,7 @@ public class TaskQuartzService {
 		return true;
 	}
 	
-	public boolean jobdelete(String jobClassName, String jobGroupName) {
+	public boolean deleteJob(String jobClassName, String jobGroupName) {
 		JobKey jobKey = new JobKey(jobClassName, jobGroupName);
 		TriggerKey triggerKey = TriggerKey.triggerKey(jobClassName, jobGroupName);
 	    JobDetail jobDetail=null;
@@ -99,7 +99,7 @@ public class TaskQuartzService {
 		return true;
 	}
 	
-	public boolean jobresume(String jobClassName, String jobGroupName) {
+	public boolean resumeJob(String jobClassName, String jobGroupName) {
 		JobKey jobKey = new JobKey(jobClassName, jobGroupName);
         JobDetail jobDetail = null;
 		try {
@@ -119,7 +119,7 @@ public class TaskQuartzService {
         return true;
 	}
 	
-	public boolean jobPause(String jobClassName, String jobGroupName) {
+	public boolean pauseJob(String jobClassName, String jobGroupName) {
 		JobKey jobKey = new JobKey(jobClassName, jobGroupName);
         JobDetail jobDetail=null;
 		
