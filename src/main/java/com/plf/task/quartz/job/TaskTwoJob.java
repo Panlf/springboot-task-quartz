@@ -1,6 +1,8 @@
 package com.plf.task.quartz.job;
 
+import com.plf.task.quartz.common.QuartzConstant;
 import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -14,6 +16,8 @@ public class TaskTwoJob implements Job {
     }
     
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        log.info("任务二-----------执行中");
+        JobDataMap jobDataMap = context.getTrigger().getJobDataMap();
+        String params = jobDataMap.getString(QuartzConstant.QUARTZ_PARAM_NAME);
+        log.info("任务二-----------执行中,参数为 ===> {}",params);
     }
 }

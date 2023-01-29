@@ -48,7 +48,11 @@ public class JobController {
 	@PostMapping(value = "/addjob")
 	public Result addJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("新增Quartz定时任务");
-		boolean flag = taskQuartzService.addJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName(), quartzTaskVo.getCronExpression(),quartzTaskVo.getDescription());
+		boolean flag = taskQuartzService.addJob(quartzTaskVo.getJobClassName(),
+				quartzTaskVo.getJobGroupName(),
+				quartzTaskVo.getCronExpression(),
+				quartzTaskVo.getDescription(),
+				quartzTaskVo.getParams());
 		return Result.result(flag, "处理完毕", null);
 	}
 	
@@ -62,7 +66,8 @@ public class JobController {
 	@GetMapping(value = "/pausejob")
 	public Result pauseJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("暂停Quartz定时任务");
-		boolean flag=taskQuartzService.pauseJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
+		boolean flag=taskQuartzService.pauseJob(quartzTaskVo.getJobClassName(),
+				quartzTaskVo.getJobGroupName());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -76,7 +81,8 @@ public class JobController {
 	@GetMapping(value = "/resumejob")
 	public Result resumeJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("恢复Quartz定时任务");
-		boolean flag=taskQuartzService.resumeJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
+		boolean flag=taskQuartzService.resumeJob(quartzTaskVo.getJobClassName(),
+				quartzTaskVo.getJobGroupName());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -102,7 +108,8 @@ public class JobController {
 	@PostMapping(value = "/deletejob")
 	public Result deleteJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("删除Quartz定时任务");
-		boolean flag=taskQuartzService.deleteJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName());
+		boolean flag=taskQuartzService.deleteJob(quartzTaskVo.getJobClassName(),
+				quartzTaskVo.getJobGroupName());
 		return Result.result(flag, "处理完毕", null);
 	}
 
@@ -116,7 +123,10 @@ public class JobController {
 	@PostMapping(value = "/updatejob")
 	public Result rescheduleJob(QuartzTaskVo quartzTaskVo) throws Exception {
 		log.info("更新Quartz定时任务");
-		boolean flag=taskQuartzService.updateJob(quartzTaskVo.getJobClassName(), quartzTaskVo.getJobGroupName(), quartzTaskVo.getCronExpression());
+		boolean flag=taskQuartzService.updateJob(quartzTaskVo.getJobClassName(),
+				quartzTaskVo.getJobGroupName(),
+				quartzTaskVo.getCronExpression(),
+				quartzTaskVo.getParams());
 		return Result.result(flag, "处理完毕", null);
 	}
 

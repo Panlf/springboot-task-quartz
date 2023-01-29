@@ -32,4 +32,9 @@ public class QuartzTaskVo {
 	 */
 	@ApiModelProperty(value="描述",example="任务功能")
 	private String description;
+	/**
+	 * 参数
+	 */
+	@ApiModelProperty(value = "参数",example = "testParam")
+	private String params;
 }

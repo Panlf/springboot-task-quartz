@@ -1,5 +1,6 @@
 package com.plf.task.quartz.service;
 
+import com.plf.task.quartz.common.QuartzConstant;
 import org.quartz.CronExpression;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.plf.task.quartz.common.ReflectUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -28,7 +30,11 @@ public class TaskQuartzService {
 	@Resource
 	private Scheduler scheduler;
 	
-	public boolean addJob(String jobClassName, String jobGroupName, String cronExpression,String description) throws Exception {
+	public boolean addJob(String jobClassName,
+						  String jobGroupName,
+						  String cronExpression,
+						  String description,
+						  String params) throws Exception {
 		if (!CronExpression.isValidExpression(cronExpression)) {
             return false;
 		}
@@ -43,6 +49,11 @@ public class TaskQuartzService {
 		CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(jobClassName, jobGroupName)
 				.startNow().withSchedule(scheduleBuilder).build();
 
+		//传递参数
+		if(!StringUtils.isEmpty(params)){
+			trigger.getJobDataMap().put(QuartzConstant.QUARTZ_PARAM_NAME,params);
+		}
+
 		try {
 			scheduler.scheduleJob(jobDetail, trigger);
 		} catch (SchedulerException e) {
@@ -52,7 +63,10 @@ public class TaskQuartzService {
 		return true;
 	}
 	
-	public boolean updateJob(String jobClassName, String jobGroupName, String cronExpression) throws Exception {
+	public boolean updateJob(String jobClassName,
+							 String jobGroupName,
+							 String cronExpression,
+							 String params) throws Exception {
 		if (!CronExpression.isValidExpression(cronExpression)) {
             return false;
 		}
@@ -68,6 +82,11 @@ public class TaskQuartzService {
 
 			// 按新的trigger重新设置job执行
 			scheduler.rescheduleJob(triggerKey, trigger);
+
+			//传递参数
+			if(!StringUtils.isEmpty(params)){
+				trigger.getJobDataMap().put(QuartzConstant.QUARTZ_PARAM_NAME,params);
+			}
 		} catch (SchedulerException e) {
 			log.error("更新定时任务失败,失败原因:{}" ,e.getMessage());
 			return false;
