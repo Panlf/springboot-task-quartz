@@ -25,7 +25,7 @@ public class JobDetailInfoService {
 	public PageInfo<JobDetailInfo> getJobDetailInfo(int pageNumber, int pageSize) {
 		PageHelper.startPage(pageNumber, pageSize);
 		List<JobDetailInfo> list = jobDetailInfoMapper.getJobDetailInfo();
-		return new PageInfo<JobDetailInfo>(list);
+		return new PageInfo<>(list);
 	}
 
 }
